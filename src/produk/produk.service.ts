@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service.js";
 import type { CreateProdukDto, UpdateProdukDto } from "./dto/produk.dto.js";
 
@@ -23,9 +23,7 @@ export class ProdukService {
     return produk;
   }
 
-  async create(data: CreateProdukDto) {
-    this.validasi(data, true);
-
+  create(data: CreateProdukDto) {
     return this.prisma.produk.create({
       data: {
         nama: data.nama.trim(),
@@ -38,7 +36,6 @@ export class ProdukService {
 
   async update(id: number, data: UpdateProdukDto) {
     await this.findOne(id);
-    this.validasi(data, false);
 
     return this.prisma.produk.update({
       where: { id },
@@ -85,41 +82,5 @@ export class ProdukService {
         totalNilai: item._sum.harga ?? 0,
       })),
     };
-  }
-
-  private validasi(data: UpdateProdukDto, wajibLengkap: boolean) {
-    const error: string[] = [];
-
-    if (wajibLengkap || data.nama !== undefined) {
-      if (typeof data.nama !== "string" || data.nama.trim() === "") {
-        error.push("nama wajib diisi");
-      }
-    }
-
-    if (wajibLengkap || data.harga !== undefined) {
-      if (
-        typeof data.harga !== "number" ||
-        !Number.isInteger(data.harga) ||
-        data.harga < 0
-      ) {
-        error.push("harga wajib berupa bilangan bulat >= 0");
-      }
-    }
-
-    if (wajibLengkap || data.kategori !== undefined) {
-      if (typeof data.kategori !== "string" || data.kategori.trim() === "") {
-        error.push("kategori wajib diisi");
-      }
-    }
-
-    if (wajibLengkap || data.deskripsi !== undefined) {
-      if (typeof data.deskripsi !== "string" || data.deskripsi.trim() === "") {
-        error.push("deskripsi wajib diisi");
-      }
-    }
-
-    if (error.length > 0) {
-      throw new BadRequestException(error);
-    }
   }
 }

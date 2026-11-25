@@ -10,7 +10,7 @@ import {
   Query,
 } from "@nestjs/common";
 import { ProdukService } from "./produk.service.js";
-import type { CreateProdukDto, UpdateProdukDto } from "./dto/produk.dto.js";
+import { CreateProdukDto, UpdateProdukDto } from "./dto/produk.dto.js";
 
 @Controller("produk")
 export class ProdukController {

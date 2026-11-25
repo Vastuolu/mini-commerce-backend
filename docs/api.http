@@ -1,0 +1,54 @@
+@baseUrl = http://localhost:3000
+
+# Ganti nilai ini dengan id produk yang ingin dilihat/diubah/dihapus.
+# Contoh: setelah POST di bawah, salin id dari response ke sini.
+@produkId = 2
+
+### Info API
+GET {{baseUrl}}/
+
+### Ambil semua produk
+GET {{baseUrl}}/produk
+
+### Filter produk berdasarkan kategori
+GET {{baseUrl}}/produk?kategori=Audio
+
+### Statistik produk (query lanjutan)
+GET {{baseUrl}}/produk/statistik
+
+### Ambil satu produk
+GET {{baseUrl}}/produk/{{produkId}}
+
+### Tambah produk
+POST {{baseUrl}}/produk
+Content-Type: application/json
+
+{
+  "nama": "Produk Uji Coba",
+  "harga": 100000,
+  "kategori": "Aksesoris",
+  "deskripsi": "Produk sementara untuk uji CRUD."
+}
+
+### Tambah produk (invalid, harus 400)
+POST {{baseUrl}}/produk
+Content-Type: application/json
+
+{
+  "nama": "",
+  "harga": -5,
+  "kategori": "",
+  "deskripsi": ""
+}
+
+### Ubah produk
+PATCH {{baseUrl}}/produk/{{produkId}}
+Content-Type: application/json
+
+{
+  "harga": 125000,
+  "deskripsi": "Produk sementara yang sudah diubah."
+}
+
+### Hapus produk
+DELETE {{baseUrl}}/produk/{{produkId}}

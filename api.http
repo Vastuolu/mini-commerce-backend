@@ -1,11 +1,11 @@
 @baseUrl = http://localhost:3000
 
-@produkId = 2
+@produkId = 7
 
 ### Info API
 GET {{baseUrl}}/
 
-### Ambil semua produk
+###! Ambil semua produk
 GET {{baseUrl}}/produk
 
 ### Filter produk berdasarkan kategori
@@ -34,7 +34,7 @@ Content-Type: application/json
 
 {
   "harga": 125000,
-  "deskripsi": "Produk sementara yang sudah diubah."
+  "deskripsi": "[UPDATED] Produk sementara yang sudah diubah."
 }
 
 ### Hapus produk
