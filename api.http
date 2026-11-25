@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:3000
+
+@produkId = 2
+
+### Info API
+GET {{baseUrl}}/
+
+### Ambil semua produk
+GET {{baseUrl}}/produk
+
+### Filter produk berdasarkan kategori
+GET {{baseUrl}}/produk?kategori=Audio
+
+### Statistik produk (query lanjutan)
+GET {{baseUrl}}/produk/statistik
+
+### Ambil satu produk
+GET {{baseUrl}}/produk/{{produkId}}
+
+### Tambah produk
+POST {{baseUrl}}/produk
+Content-Type: application/json
+
+{
+  "nama": "Produk Uji Coba",
+  "harga": 100000,
+  "kategori": "Aksesoris",
+  "deskripsi": "Produk sementara untuk uji CRUD."
+}
+
+### Ubah produk
+PATCH {{baseUrl}}/produk/{{produkId}}
+Content-Type: application/json
+
+{
+  "harga": 125000,
+  "deskripsi": "Produk sementara yang sudah diubah."
+}
+
+### Hapus produk
+DELETE {{baseUrl}}/produk/{{produkId}}
